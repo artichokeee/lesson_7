@@ -13,8 +13,8 @@ describe("connect to test db", () => {
       (1, 'Ivan', '02-2022', 'Barcelona'), 
       (2, 'Maria', '03-2022', 'Tokio'),
       (3, 'Andrey', '02-2023', 'Milan'),
-      (4, 'Artem', '05-2023', 'Istanbul'),
-      (5, 'Alina', '07-2023', 'Madrid');`
+      (4, 'Artem', '02-2023', 'Istanbul'),
+      (5, 'Alina', '02-2023', 'Madrid');`
     );
   });
 
@@ -27,8 +27,11 @@ describe("connect to test db", () => {
     });
   });
 
-  it("select all students", () => {
-    cy.task("queryDb", "SELECT FirstName FROM Students").then((result) => {
+  it("select all students from 02-2023 group", () => {
+    cy.task(
+      "queryDb",
+      `SELECT FirstName FROM Students WHERE StudentGroup = "02-2023"`
+    ).then((result) => {
       cy.log(JSON.stringify(result));
     });
   });
